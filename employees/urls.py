@@ -1,7 +1,11 @@
 from django.urls import path
-from .views import EmployeeListCreateView, EmployeeDetailView
+from .views import EmployeeListCreateView, EmployeeDetailView, employee_page
 
 urlpatterns = [
-    path('', EmployeeListCreateView.as_view(), name='employee-list'),
-    path('<int:pk>/', EmployeeDetailView.as_view(), name='employee-detail'),
+    # Dashboard
+    path("", employee_page, name="employee-page"),
+
+    # API
+    path("api/", EmployeeListCreateView.as_view(), name="employee-list"),
+    path("api/<int:pk>/", EmployeeDetailView.as_view(), name="employee-detail"),
 ]

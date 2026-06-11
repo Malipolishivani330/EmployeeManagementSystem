@@ -1,0 +1,313 @@
+{% extends "employees/base.html" %}
+
+{% block content %}
+
+
+<!-- Dashboard Statistics -->
+<div class="row g-4 mb-4">
+
+    <!-- Total Employees -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card dashboard-card bg-primary text-white shadow h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill fs-1 mb-2"></i>
+                <h6 class="fw-bold">Total Employees</h6>
+                <h2 class="display-6 fw-bold">{{ total_employees }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Departments -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card dashboard-card bg-success text-white shadow h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-building fs-1 mb-2"></i>
+                <h6 class="fw-bold">Departments</h6>
+                <h2 class="display-6 fw-bold">{{ total_departments }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highest Salary -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card dashboard-card bg-warning text-dark shadow h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-currency-rupee fs-1 mb-2"></i>
+                <h6 class="fw-bold">Highest Salary</h6>
+                <h3 class="fw-bold">₹{{ highest_salary }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Average Salary -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card dashboard-card bg-info text-white shadow h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-graph-up-arrow fs-1 mb-2"></i>
+                <h6 class="fw-bold">Average Salary</h6>
+                <h3 class="fw-bold">₹{{ average_salary }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Employees -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card dashboard-card bg-success text-white shadow h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-check-circle-fill fs-1 mb-2"></i>
+                <h6 class="fw-bold">Active</h6>
+                <h2 class="display-6 fw-bold">{{ active_employees }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inactive Employees -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card dashboard-card bg-danger text-white shadow h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-x-circle-fill fs-1 mb-2"></i>
+                <h6 class="fw-bold">Inactive</h6>
+                <h2 class="display-6 fw-bold">{{ inactive_employees }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Search Section -->
+
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+
+        <div class="row g-3 align-items-center">
+
+            <div class="col-md-8">
+
+                <form method="GET">
+
+                    <div class="input-group">
+
+                        <input
+                            type="text"
+                            name="search"
+                            class="form-control"
+                            placeholder="Search by Name, Email, Phone, Department or Designation"
+                            value="{{ search }}"
+                        >
+
+                        <button class="btn btn-primary">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-md-4 text-end">
+
+                <a href="/admin/employees/employee/add/"
+                   class="btn btn-success">
+
+                    <i class="bi bi-person-plus-fill"></i>
+                    Add Employee
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Total Records -->
+
+<div class="mb-3">
+
+    <h6 class="text-secondary">
+
+        Total Records :
+        <span class="badge bg-primary">
+            {{ employees|length }}
+        </span>
+
+    </h6>
+
+</div>
+
+<!-- Employee Table -->
+
+<div class="card shadow dashboard-card">
+
+    <div class="card-header bg-primary text-white">
+
+        <h4 class="mb-0">
+
+            <i class="bi bi-table"></i>
+            Employee List
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-striped align-middle">
+
+                <thead class="table-primary">
+
+                    <tr>
+
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Salary</th>
+                        <th>Joining Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for employee in employees %}
+
+                    <tr>
+
+                        <td>{{ forloop.counter }}</td>
+
+                        <td class="fw-bold text-primary">
+                            {{ employee.name }}
+                        </td>
+
+                        <td>
+                            <a href="mailto:{{ employee.email }}">
+                                {{ employee.email }}
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="tel:{{ employee.phone }}">
+                                {{ employee.phone }}
+                            </a>
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-primary">
+
+                                {{ employee.department }}
+
+                            </span>
+
+                        </td>
+
+                        <td>{{ employee.designation }}</td>
+
+                        <td>
+
+                            ₹{{ employee.salary|floatformat:2 }}
+
+                        </td>
+
+                        <td>
+
+                            {{ employee.joining_date|date:"d M Y" }}
+
+                        </td>
+
+                        <td>
+
+                            {% if employee.is_active %}
+
+                                <span class="badge bg-success">
+
+                                    Active
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    Inactive
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <a href="/admin/employees/employee/{{ employee.id }}/change/"
+                               class="btn btn-warning btn-sm">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                            </a>
+
+                            <a href="/admin/employees/employee/{{ employee.id }}/delete/"
+                               class="btn btn-danger btn-sm">
+
+                                <i class="bi bi-trash-fill"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="10" class="text-center py-4">
+
+                            <h5 class="text-muted">
+
+                                No Employees Found
+
+                            </h5>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bottom Footer -->
+
+<div class="text-center mt-4 text-secondary">
+
+    <small>
+
+        Employee Management System • Django • Bootstrap 5 • Render Ready
+
+    </small>
+
+</div>
+
+{% endblock %}
