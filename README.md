@@ -10,7 +10,7 @@ A modern, full-stack **Employee Management System** built with **Django**, **Dja
 `https://employeemanagementsystem-koqw.onrender.com
 
 **GitHub Repository:**
-`https://github.com/your-username/EmployeeManagementSystem`
+`https://github.com/Malipolishivani330/EmployeeManagementSystem
 
 ---
 
