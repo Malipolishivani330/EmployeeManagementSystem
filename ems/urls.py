@@ -1,3 +1,4 @@
+from employees.views import home
 from django.contrib import admin
 from django.urls import path, include
 
@@ -6,6 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('api/employees/', include('employees.urls')),
 

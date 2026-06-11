@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from rest_framework import generics, filters
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from django_filters.rest_framework import DjangoFilterBackend
@@ -5,6 +6,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Employee
 from .serializers import EmployeeSerializer
 
+def home(request):
+    return HttpResponse("Employee Management System API is running successfully!")
 
 # Custom Permission
 class IsAdminOrReadOnly(BasePermission):
